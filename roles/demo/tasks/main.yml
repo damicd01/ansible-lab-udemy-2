@@ -1,3 +1,10 @@
+- name: Install apache and dependencies
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - python-pip
+    - python-virtualenv
+    - python-mysqldb
+
 - name: copy contents of demo app
   copy: src=/home/vagrant/ansible/demo/app/ dest=/var/www/demo/ mode=0755
   notify: restart apache2
