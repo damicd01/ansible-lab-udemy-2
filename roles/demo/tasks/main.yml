@@ -9,6 +9,10 @@
   copy: src=/home/vagrant/ansible/demo/app/ dest=/var/www/demo/ mode=0755
   notify: restart apache2
 
+- name: change the wsgi file using a template
+  template: src=demo.wsgi.j2 dest=/var/www/demo/demo.wsgi mode=0755
+  notify: restart apache2
+
 - name: copy apache2 virtal host config
   copy: src=/home/vagrant/ansible/demo/ dest=/etc/apache2/sites-available mode=0755
   notify: restart apache2
