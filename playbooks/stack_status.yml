@@ -1,6 +1,7 @@
 ---
 - hosts: loadbalancer
   become: yes
+  gather_facts: false
   tasks:
     - name: nginx status
       shell: service nginx status
@@ -10,6 +11,7 @@
 
 - hosts: webserver
   become: yes
+  gather_facts: false
   tasks:
     - name: apache2 status
       shell: service apache2 status
@@ -27,6 +29,7 @@
       wait_for: host={{ ansible_eth1.ipv4.address }} port=3306 timeout=1
 
 - hosts: control
+  gather_facts: false
   tasks:
     - name: check end to end connection from ansible control host to lb
       uri: url=http://{{ item  }} return_content=yes
@@ -52,6 +55,7 @@
 
 
 - hosts: loadbalancer 
+  gather_facts: false
   tasks:
     - name: check back-end connection from lb to app servers
       uri: url=http://{{ item }} return_content=yes

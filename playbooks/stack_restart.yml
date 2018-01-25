@@ -1,6 +1,7 @@
 ---
 - hosts: loadbalancer
   become: yes
+  gather_facts: false
   tasks:
     - name: stop loadbalancer services
       service: name=nginx state=stopped
@@ -10,6 +11,7 @@
 
 - hosts: webserver
   become: yes
+  gather_facts: false
   tasks:
     - name: stop webserver services
       service: name=apache2 state=stopped
@@ -28,6 +30,7 @@
 
 - hosts: webserver
   become: yes
+  gather_facts: false
   tasks:
     - name: start webserver services
       service: name=apache2 state=started
@@ -36,6 +39,7 @@
       wait_for: port=80 state=started
 
 - hosts: loadbalancer
+  gather_facts: false
   become: yes
   tasks:
     - name: start loadbalancer services

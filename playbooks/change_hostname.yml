@@ -1,6 +1,7 @@
 ---
 - hosts: all 
   become: yes
+  gather_facts: false
   tasks:
     - name: Update /etc/hostname file
       lineinfile: dest=/etc/hostname regexp=.* line={{inventory_hostname}} create=yes
